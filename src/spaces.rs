@@ -1,4 +1,7 @@
-use crate::{illuminants::{ACES_ILLUMINANT, D65_ILLUMINANT}, representations::{CIExyCoords, Chromaticities}};
+use crate::{
+    illuminants::{ACES_ILLUMINANT, D65_ILLUMINANT},
+    representations::{CIExyCoords, Chromaticities},
+};
 
 // https://www.itu.int/dms_pubrec/itu-r/rec/bt/R-REC-BT.709-6-201506-I!!PDF-E.pdf
 pub const REC_709: Chromaticities = Chromaticities {

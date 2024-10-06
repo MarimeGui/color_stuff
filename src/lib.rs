@@ -6,9 +6,10 @@
 
 // http://www.brucelindbloom.com/index.html?Eqn_XYZ_to_xyY.html
 
+pub mod illuminants;
 pub mod representations;
 pub mod spaces;
-pub mod illuminants;
+pub mod transfer_functions;
 
 // ----- Matrix
 
