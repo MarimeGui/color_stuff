@@ -98,21 +98,25 @@ pub struct CIEXYZCoords {
 
 impl CIEXYZCoords {
     // http://www.brucelindbloom.com/index.html?Eqn_XYZ_to_xyY.html
-    /// Takes in XYZ coordinates and returns xyY
-    pub fn to_xyy(self, illuminant: CIExyCoords) -> CIExyYCoords {
-        // Handle pure black
+    /// Try to convert these XYZ coordinates to xyY directly if possible. Will fail if color is pure black.
+    pub fn try_xyy(self) -> Option<CIExyYCoords> {
+        // If pure black
         if (self.x < f32::EPSILON) & (self.y < f32::EPSILON) & (self.z < f32::EPSILON) {
-            // If pure black, return white point with zero luma
-            return illuminant.with_luma(0.0);
+            return None;
         }
 
-        CIExyYCoords {
+        Some(CIExyYCoords {
             coords: CIExyCoords {
                 x: self.x / (self.x + self.y + self.z),
                 y: self.y / (self.x + self.y + self.z),
             },
             luma: self.y,
-        }
+        })
+    }
+
+    /// Takes in XYZ coordinates and returns xyY
+    pub fn to_xyy(self, illuminant: CIExyCoords) -> CIExyYCoords {
+        self.try_xyy().unwrap_or(illuminant.with_luma(0.0))
     }
 }
 
