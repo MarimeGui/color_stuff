@@ -80,6 +80,13 @@ impl From<Vec2<f32>> for CIExyCoords {
     }
 }
 
+#[cfg(feature = "exr")]
+impl From<CIExyCoords> for Vec2<f32> {
+    fn from(value: CIExyCoords) -> Self {
+        Self(value.x, value.y)
+    }
+}
+
 // ----- CIE XYZ coords
 
 #[derive(Copy, Clone, Debug)]
